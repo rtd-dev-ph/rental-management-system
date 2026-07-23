@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/RMS.Api/RMS.Api.csproj" />
+    <Project Path="src/RMS.Application/RMS.Application.csproj" />
+    <Project Path="src/RMS.Domain/RMS.Domain.csproj" />
+    <Project Path="src/RMS.Infrastructure/RMS.Infrastructure.csproj" />
+    <Project Path="src/RMS.Shared/RMS.Shared.csproj" />
+  </Folder>
+</Solution>

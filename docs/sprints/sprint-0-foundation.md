@@ -21,16 +21,16 @@ Set up development environment and project structure.
 - [✅] Create Clean Architecture solution
 - [✅] Install NuGet packages
 - [✅] Configure PostgreSQL in Docker
-- [ ] Set up Entity Framework Core
-- [ ] Configure Swagger
-- [ ] Set up Serilog logging
+- [✅] Set up Entity Framework Core
+- [✅] Configure Swagger
+- [✅] Set up Serilog logging
 - [ ] Create exception middleware
 
 ### Database
 
-- [ ] Create roles table
-- [ ] Create users table
-- [ ] Create refresh_tokens table
+- [✅] Create roles table
+- [✅] Create users table
+- [✅] Create refresh_tokens table
 - [ ] Run initial migration
 
 ### Frontend

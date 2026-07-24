@@ -1,7 +1,7 @@
 # Sprint 0: Project Foundation
 
 **Start Date**: July 23, 2026
-**Status**: 🟡 In Progress
+**Status**: 🟡 Done
 
 ## Goal
 

@@ -12,3 +12,6 @@
 
 - API Docs: https://localhost:5001/swagger (when running)
 - Frontend: http://localhost:5173 (when running)
+
+## Current Sprint
+📄 [Sprint 2: Frontend Authentication](sprints/sprint-2-frontend-auth.md) - 🟡 In Progress

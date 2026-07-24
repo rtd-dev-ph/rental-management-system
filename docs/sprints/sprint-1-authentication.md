@@ -1,7 +1,7 @@
 # Sprint 1: Authentication & User Management
 
-**Planned Start**: After Sprint 0  
-**Status**: ⬜ Not Started
+**Planned Start**: July 23, 2026  
+**Status**: ⬜ Done
 
 ## Goal
 

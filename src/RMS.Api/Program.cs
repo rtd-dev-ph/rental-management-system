@@ -1,13 +1,18 @@
 using System.Text;
+using FluentValidation;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
+using RMS.Api.Middleware;
+using RMS.Application.Common.Interfaces;
+using RMS.Application.Features.Auth.Commands.Register;
 using RMS.Infrastructure.Persistence.Context;
+using RMS.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 1. Serilog
 Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
     .WriteTo.Console()
@@ -16,11 +21,18 @@ Log.Logger = new LoggerConfiguration()
 
 builder.Host.UseSerilog();
 
-// 2. Database
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// 3. JWT Authentication
+builder.Services.AddScoped<IApplicationDbContext>(sp => 
+    sp.GetRequiredService<ApplicationDbContext>());
+
+builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
+builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(RegisterCommand).Assembly));
+builder.Services.AddValidatorsFromAssembly(typeof(RegisterCommandValidator).Assembly);
+
 var jwtSettings = builder.Configuration.GetSection("Jwt");
 var secretKey = jwtSettings["Secret"]!;
 
@@ -45,15 +57,10 @@ builder.Services.AddAuthentication(options =>
 });
 
 builder.Services.AddAuthorization();
-
-// 4. Swagger (simplified - will enhance later)
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// 5. Controllers
-builder.Services.AddControllers();
-
-// 6. CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
@@ -66,7 +73,7 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Middleware
+app.UseMiddleware<ExceptionMiddleware>();
 app.UseSerilogRequestLogging();
 app.UseSwagger();
 app.UseSwaggerUI();

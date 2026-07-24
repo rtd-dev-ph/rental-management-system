@@ -1,69 +1,55 @@
 # Sprint 2: Frontend Authentication
 
-**Start Date**: July 24, 2026
-**Status**: 🟡 In Progress
+**Date**: July 23, 2026
+**Status**: ✅ Complete
 
 ## Goal
 
-Build React frontend with login, register, and protected routes.
+Build React frontend with login, register, dashboard, and protected routes.
 
 ## User Stories
 
 | ID     | Story                              | Status |
 | ------ | ---------------------------------- | ------ |
-| US-2.1 | Login page with form validation    | ⬜     |
-| US-2.2 | Register page with form validation | ⬜     |
-| US-2.3 | Auth context (store user state)    | ⬜     |
-| US-2.4 | Protected routes                   | ⬜     |
-| US-2.5 | Auto-attach JWT to requests        | ⬜     |
-| US-2.6 | Redirect after login               | ⬜     |
+| US-2.1 | Login page with form validation    | ✅     |
+| US-2.2 | Register page with form validation | ✅     |
+| US-2.3 | Auth context (global state)        | ✅     |
+| US-2.4 | Protected routes                   | ✅     |
+| US-2.5 | Auto-attach JWT to API requests    | ✅     |
+| US-2.6 | Redirect after login/register      | ✅     |
 
-## Tech Stack
+## Pages Built
 
-- React 19 + TypeScript
-- Vite (build tool)
-- Tailwind CSS 4
-- React Router 7
-- Axios (HTTP client)
-- React Query (server state)
+- ✅ `/login` - Email + password form with error handling
+- ✅ `/register` - Full registration form
+- ✅ `/dashboard` - Protected page showing user info + logout
 
-## Tasks
+## Components Created
 
-### Setup
+- ✅ Input, Button, Alert (reusable UI)
+- ✅ ProtectedRoute (auth guard)
 
-- [ ] Scaffold React app with Vite
-- [ ] Install dependencies
-- [ ] Configure Tailwind CSS
-- [ ] Set up folder structure
+## State Management
 
-### Pages
+- ✅ AuthContext + AuthProvider (global auth state)
+- ✅ useAuth hook (access auth from any component)
+- ✅ Token persistence in localStorage
 
-- [ ] Login page (`/login`)
-- [ ] Register page (`/register`)
-- [ ] Dashboard page (`/dashboard`) - placeholder
-- [ ] Unauthorized page (`/unauthorized`)
+## Services
 
-### Components
+- ✅ Axios instance with base URL + interceptors
+- ✅ Auth service (login, register, refresh API calls)
 
-- [ ] AuthLayout (centered card layout)
-- [ ] ProtectedRoute wrapper
-- [ ] Input component
-- [ ] Button component
-- [ ] Alert/Error component
+## Tech Used
 
-### Services
+- React 19, TypeScript, Vite, Tailwind CSS 4, React Router 7, Axios
 
-- [ ] API service (axios instance)
-- [ ] Auth service (login, register, refresh)
-- [ ] Token interceptor
+## Lessons Learned
 
-### State
+- Separate context, provider, and hook to avoid ESLint warnings
+- Use HTTP for local dev on Ubuntu (not HTTPS)
+- Axios interceptors handle token attachment and 401 redirects
 
-- [ ] AuthContext (user, tokens, login/logout)
-- [ ] Token persistence (localStorage)
+## Next Sprint
 
-## Notes
-
-- Backend API already running at https://localhost:5001
-- JWT tokens expire in 15 minutes
-- Refresh token flow to be implemented
+**Sprint 3: Vehicle Management** - CRUD backend + frontend for vehicles

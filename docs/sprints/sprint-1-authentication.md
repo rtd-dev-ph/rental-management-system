@@ -1,43 +1,47 @@
 # Sprint 1: Authentication & User Management
 
-**Planned Start**: July 23, 2026  
-**Status**: ⬜ Done
+**Date**: January 23-24, 2026
+**Status**: ✅ Complete
 
 ## Goal
 
-Users can register and login with JWT authentication.
+Implement JWT authentication with role-based access control.
 
 ## User Stories
 
-| ID   | Story             | Status |
-| ---- | ----------------- | ------ |
-| US-1 | User Registration | ⬜     |
-| US-2 | User Login        | ⬜     |
-| US-3 | Token Refresh     | ⬜     |
-| US-4 | Get User Profile  | ⬜     |
+| ID     | Story                               | Status |
+| ------ | ----------------------------------- | ------ |
+| US-1.1 | User Registration endpoint          | ✅     |
+| US-1.2 | User Login endpoint                 | ✅     |
+| US-1.3 | Token Refresh endpoint              | ✅     |
+| US-1.4 | Exception handling middleware       | ✅     |
+| US-1.5 | Input validation (FluentValidation) | ✅     |
 
-## API Endpoints (Planned)
+## API Endpoints
 
-| Method | Endpoint           | Description       |
-| ------ | ------------------ | ----------------- |
-| POST   | /api/auth/register | Register new user |
-| POST   | /api/auth/login    | Login             |
-| POST   | /api/auth/refresh  | Refresh token     |
-| GET    | /api/auth/me       | Get profile       |
+| Method | Endpoint           | Description            | Status |
+| ------ | ------------------ | ---------------------- | ------ |
+| POST   | /api/auth/register | Register new user      | ✅     |
+| POST   | /api/auth/login    | Login with credentials | ✅     |
+| POST   | /api/auth/refresh  | Refresh access token   | ✅     |
 
-## Backend Tasks
+## Backend Features
 
-- [ ] Create User domain entity
-- [ ] Create Register endpoint
-- [ ] Create Login endpoint
-- [ ] Implement JWT generation
-- [ ] Implement password hashing
-- [ ] Add FluentValidation
-- [ ] Test with Swagger
+- ✅ Clean Architecture (5 layers)
+- ✅ CQRS with MediatR
+- ✅ FluentValidation on all inputs
+- ✅ Global exception middleware
+- ✅ Password hashing with PBKDF2
+- ✅ JWT access + refresh tokens
+- ✅ Role-based authorization
+- ✅ First user auto-assigned Owner role
+- ✅ Swagger documentation
 
-## Frontend Tasks
+## Database Tables
 
-- [ ] Create login form
-- [ ] Create register form
-- [ ] Create auth context
-- [ ] Set up protected routes
+- ✅ roles (seeded: Owner, Admin, Staff, Customer)
+- ✅ users (with soft delete)
+
+## Next Sprint
+
+**Sprint 2: Frontend Authentication** - React login/register/dashboard pages

@@ -12,8 +12,8 @@ using RMS.Infrastructure.Persistence.Context;
 namespace RMS.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260728024956_Add table vehicles")]
-    partial class Addtablevehicles
+    [Migration("20260729124734_FixBrandIndex")]
+    partial class FixBrandIndex
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -153,8 +153,8 @@ namespace RMS.Infrastructure.Migrations
 
                     b.Property<string>("Brand")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("integer");
@@ -163,7 +163,7 @@ namespace RMS.Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<decimal>("DailyRate")
-                        .HasColumnType("numeric");
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("timestamp with time zone");
@@ -195,7 +195,11 @@ namespace RMS.Infrastructure.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("vehicle_categories", (string)null);
+                    b.HasIndex("PlateNumber")
+                        .IsUnique()
+                        .HasFilter("\"DeletedAt\" IS NULL");
+
+                    b.ToTable("vehicles", (string)null);
                 });
 
             modelBuilder.Entity("RMS.Domain.Entities.VehicleCategory", b =>
@@ -218,7 +222,7 @@ namespace RMS.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("VehicleCategory");
+                    b.ToTable("VehicleCategories");
                 });
 
             modelBuilder.Entity("RMS.Domain.Entities.User", b =>

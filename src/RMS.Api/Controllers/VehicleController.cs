@@ -1,14 +1,17 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using RMS.Application.Common.Models;
 using RMS.Application.Features.Dto;
 using RMS.Application.Features.Vehicles.Commands.CreateCategory;
 using RMS.Application.Features.Vehicles.Commands.CreateVehicle;
 using RMS.Application.Features.Vehicles.Commands.GetCategory;
 using RMS.Application.Features.Vehicles.Commands.GetVehicle;
+using RMS.Application.Features.Vehicles.Commands.UpdateVehicle;
 
 namespace RMS.Api.Controllers
 {
@@ -45,6 +48,21 @@ namespace RMS.Api.Controllers
             return Ok(result);
         }
   
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateVehicle(Guid id, [FromBody] UpdateVehicle command)
+        {
+            if(id != command.Id)
+            {
+                return BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = "ID in URL does not match ID in request body.",
+                    ErrorCode = "ID_MISMATCH"
+                });
+            }
+            var result = await _mediator.Send(command);
+            return HandleResponse(result);
+        }
 
     [HttpPost("category")]
     public async Task<IActionResult>CreateCategory([FromBody] CreateCategoryCommand command)

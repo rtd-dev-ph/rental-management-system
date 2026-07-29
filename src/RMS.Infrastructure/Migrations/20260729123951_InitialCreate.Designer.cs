@@ -12,8 +12,8 @@ using RMS.Infrastructure.Persistence.Context;
 namespace RMS.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260728032316_Catch up table vehicle and vehicle categories")]
-    partial class Catchuptablevehicleandvehiclecategories
+    [Migration("20260729123951_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -163,7 +163,7 @@ namespace RMS.Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<decimal>("DailyRate")
-                        .HasColumnType("numeric");
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("timestamp with time zone");
@@ -194,6 +194,10 @@ namespace RMS.Infrastructure.Migrations
                         .IsUnique();
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("PlateNumber")
+                        .IsUnique()
+                        .HasFilter("\"DeletedAt\" IS NULL");
 
                     b.ToTable("vehicles", (string)null);
                 });

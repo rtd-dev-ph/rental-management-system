@@ -30,8 +30,23 @@ namespace RMS.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "users",
+                name: "VehicleCategories",
                 columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VehicleCategories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "users",
+                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
@@ -59,6 +74,33 @@ namespace RMS.Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "vehicles",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Brand = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    Model = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    Year = table.Column<int>(type: "integer", nullable: false),
+                    PlateNumber = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
+                    DailyRate = table.Column<decimal>(type: "numeric(10,2)", nullable: false),
+                    Status = table.Column<string>(type: "text", nullable: false),
+                    CategoryId = table.Column<int>(type: "integer", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_vehicles", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_vehicles_VehicleCategories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "VehicleCategories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "roles",
                 columns: new[] { "Id", "CreatedAt", "Description", "Name" },
@@ -79,17 +121,33 @@ namespace RMS.Infrastructure.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_users_RoleId",
                 table: "users",
-                column: "RoleId");
-        }
+                column: "RoleId"); 
 
-        /// <inheritdoc />
+            migrationBuilder.CreateIndex(
+                name: "IX_vehicles_CategoryId",
+                table: "vehicles",
+                column: "CategoryId");         
+                
+            migrationBuilder.CreateIndex(
+                name: "IX_vehicles_PlateNumber",
+                table: "vehicles", 
+                column: "PlateNumber", 
+                unique: true,
+                filter: "\"DeletedAt\" IS NULL");
+        }       /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "users");
 
             migrationBuilder.DropTable(
+                name: "vehicles");
+
+            migrationBuilder.DropTable(
                 name: "roles");
+
+            migrationBuilder.DropTable(
+                name: "VehicleCategories");
         }
     }
 }

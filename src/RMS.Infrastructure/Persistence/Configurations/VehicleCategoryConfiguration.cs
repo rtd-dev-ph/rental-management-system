@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RMS.Domain.Entities;
 
-namespace TodoApp.Infrastructure.Persistence.Configurations;
+namespace RMS.Infrastructure.Persistence.Configurations;
 
-public class vehicleca : IEntityTypeConfiguration<Vehicle>
+public class VehicleCategories : IEntityTypeConfiguration<Vehicle>
 {
     public void Configure(EntityTypeBuilder<Vehicle> builder)
     {

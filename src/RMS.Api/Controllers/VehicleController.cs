@@ -14,7 +14,7 @@ namespace RMS.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class VehicleController : ControllerBase
+    public class VehicleController : BaseApiController
     {
     private readonly IMediator _mediator;
 
@@ -28,7 +28,15 @@ namespace RMS.Api.Controllers
     {
             var results= await _mediator.Send(new GetVehicleCommand());
             return Ok(results);
-    }   
+    }    
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetVehicleById(Guid id)
+        {
+            var result = await _mediator.Send(new GetVehicleById {Id = id});
+            
+            return HandleResponse(result);
+        } 
 
     [HttpPost]
     public async Task<IActionResult>Create([FromBody] CreateVehicleCommand command)
@@ -51,5 +59,5 @@ namespace RMS.Api.Controllers
             var result = await _mediator.Send(new GetCategoryCommand());
             return Ok(result);
         }
-    }
+    } 
 }

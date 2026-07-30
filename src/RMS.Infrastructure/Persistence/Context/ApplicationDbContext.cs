@@ -16,6 +16,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<Vehicle> Vehicles => Set<Vehicle>();
     public DbSet<VehicleCategory> VehicleCategories  => Set<VehicleCategory>();
     
+    public DbSet<Reservation> Reservations => Set<Reservation>();
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
@@ -25,6 +26,6 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
             new Role { Id = 2, Name = "Admin", Description = "Administrator with management access", CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
             new Role { Id = 3, Name = "Staff", Description = "Staff member with operational access", CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
             new Role { Id = 4, Name = "Customer", Description = "Registered customer", CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc) }
-        );
+        ); 
     }
 }

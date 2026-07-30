@@ -1,5 +1,7 @@
 using System.Net;
 using System.Text.Json;
+using Microsoft.EntityFrameworkCore;
+using Npgsql;
 using RMS.Shared.Exceptions;
 
 namespace RMS.Api.Middleware;
@@ -44,6 +46,21 @@ public class ExceptionMiddleware
                 };
                 _logger.LogWarning("Validation error: {Message}", validationException.Message);
                 break;
+ 
+            case DbUpdateException { InnerException: PostgresException { SqlState: "23505" } pgEx }:
+                    statusCode = HttpStatusCode.Conflict;
+                    
+                    // Extract column name from PostgreSQL error
+                    var detail = pgEx.Detail ?? "A duplicate value was detected";
+                    
+                    response = new
+                    {
+                        title = "Duplicate Entry",
+                        status = (int)statusCode,
+                        detail = detail
+                    };
+                    _logger.LogWarning("Duplicate entry: {Detail}", detail);
+                    break;
 
             default:
                 statusCode = HttpStatusCode.InternalServerError;

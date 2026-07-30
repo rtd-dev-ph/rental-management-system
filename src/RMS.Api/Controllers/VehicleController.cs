@@ -9,6 +9,7 @@ using RMS.Application.Common.Models;
 using RMS.Application.Features.Dto;
 using RMS.Application.Features.Vehicles.Commands.CreateCategory;
 using RMS.Application.Features.Vehicles.Commands.CreateVehicle;
+using RMS.Application.Features.Vehicles.Commands.DeleteVehicle;
 using RMS.Application.Features.Vehicles.Commands.GetCategory;
 using RMS.Application.Features.Vehicles.Commands.GetVehicle;
 using RMS.Application.Features.Vehicles.Commands.UpdateVehicle;
@@ -61,6 +62,13 @@ namespace RMS.Api.Controllers
                 });
             }
             var result = await _mediator.Send(command);
+            return HandleResponse(result);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteVehicle(Guid id)
+        {
+            var result = await _mediator.Send(new DeleteVehicle {Id = id}); 
             return HandleResponse(result);
         }
 

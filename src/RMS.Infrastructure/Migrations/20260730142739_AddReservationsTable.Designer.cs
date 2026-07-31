@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using RMS.Infrastructure.Persistence.Context;
@@ -11,9 +12,11 @@ using RMS.Infrastructure.Persistence.Context;
 namespace RMS.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260730142739_AddReservationsTable")]
+    partial class AddReservationsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,7 +34,7 @@ namespace RMS.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid?>("CustomerId")
+                    b.Property<Guid>("CustomerId")
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("EndDate")
@@ -269,10 +272,12 @@ namespace RMS.Infrastructure.Migrations
                 {
                     b.HasOne("RMS.Domain.Entities.User", "Customer")
                         .WithMany()
-                        .HasForeignKey("CustomerId");
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("RMS.Domain.Entities.Vehicle", "Vehicle")
-                        .WithMany("Reservations")
+                        .WithMany()
                         .HasForeignKey("VehicleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -307,11 +312,6 @@ namespace RMS.Infrastructure.Migrations
             modelBuilder.Entity("RMS.Domain.Entities.Role", b =>
                 {
                     b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("RMS.Domain.Entities.Vehicle", b =>
-                {
-                    b.Navigation("Reservations");
                 });
 
             modelBuilder.Entity("RMS.Domain.Entities.VehicleCategory", b =>

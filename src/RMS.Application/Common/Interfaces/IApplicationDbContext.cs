@@ -9,6 +9,6 @@ public interface IApplicationDbContext
     DbSet<Role> Roles { get; }
     DbSet<Vehicle> Vehicles { get; }
     DbSet<VehicleCategory> VehicleCategories { get; }
-
+    DbSet<Reservation> Reservations { get; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

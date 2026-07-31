@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using RMS.Infrastructure.Persistence.Context;
@@ -11,9 +12,11 @@ using RMS.Infrastructure.Persistence.Context;
 namespace RMS.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260730144442_MakeCustomerOptionalForReservation")]
+    partial class MakeCustomerOptionalForReservation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -272,7 +275,7 @@ namespace RMS.Infrastructure.Migrations
                         .HasForeignKey("CustomerId");
 
                     b.HasOne("RMS.Domain.Entities.Vehicle", "Vehicle")
-                        .WithMany("Reservations")
+                        .WithMany()
                         .HasForeignKey("VehicleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -307,11 +310,6 @@ namespace RMS.Infrastructure.Migrations
             modelBuilder.Entity("RMS.Domain.Entities.Role", b =>
                 {
                     b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("RMS.Domain.Entities.Vehicle", b =>
-                {
-                    b.Navigation("Reservations");
                 });
 
             modelBuilder.Entity("RMS.Domain.Entities.VehicleCategory", b =>

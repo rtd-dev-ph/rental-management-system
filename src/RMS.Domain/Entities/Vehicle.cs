@@ -15,4 +15,6 @@ public class Vehicle
     public DateTime CreatedAt { get; set; }
     public DateTime? UpdatedAt { get; set; }
     public DateTime? DeletedAt { get; set; }               // Soft delete
+
+    public ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
 }

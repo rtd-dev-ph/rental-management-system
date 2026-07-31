@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using RMS.Application.Common.Interfaces;
 using RMS.Application.Common.Models;
 using RMS.Domain.Entities;
@@ -20,6 +21,17 @@ namespace RMS.Application.Features.Reservations.Commands.CreateReservation;
 
   public async Task<Response<string>> Handle(CreateReservationCommand request, CancellationToken cancellationToken)
   {
+    // Check availability - prevent double booking
+
+    var  isBooked = await _context.Reservations
+    .AnyAsync(r=>r.VehicleId == request.VehicleId
+    && r.Status != "Cancelled" 
+    && r.StartDate < request.EndDate 
+    && r.EndDate > request.StartDate, cancellationToken);
+
+    if(isBooked)
+      return Response<string>.Failure("Vehicle is not available for these dates");
+
      var reservation = new Reservation()
        {
            Id = new Guid(),
@@ -27,7 +39,7 @@ namespace RMS.Application.Features.Reservations.Commands.CreateReservation;
            CustomerId = request.CustomerId, 
            StartDate = request.StartDate,
            EndDate = request.EndDate,
-           Status = "Pending",
+           Status = "Cancelled",
            TotalAmount = request.TotalAmount,
            Notes = request.Notes,
            CreatedAt = DateTime.UtcNow

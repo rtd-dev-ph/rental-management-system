@@ -2,28 +2,29 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper.Configuration.Conventions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using RMS.Application.Common.Interfaces;
 using RMS.Application.Common.Models;
 using RMS.Application.Features.Dto;
+using RMS.Application.Features.Reservations.Queries.GetReservationById;
 
-namespace RMS.Application.Features.Reservations.Queries.GetReservation
-{
-  public class GetReservationQueryHandler :  IRequestHandler<GetReservationQuery, Response<List<GetReservationDto>>>
+namespace RMS.Application.Features.Reservations.Queries.GetReservation;
+   
+  public class GetReservationByIdQueryHandler : IRequestHandler<GetReservationByIdQuery, Response<List<GetReservationDto>>>
   {
-    private readonly IApplicationDbContext _context;
-    public GetReservationQueryHandler(IApplicationDbContext context)
+  private readonly IApplicationDbContext _context;
+
+    public GetReservationByIdQueryHandler(IApplicationDbContext context)
     {
-     _context = context;
-        
+        _context = context;
     }
-    public  async Task<Response<List<GetReservationDto>>> Handle(GetReservationQuery request, CancellationToken cancellationToken)
+    public async Task<Response<List<GetReservationDto>>> Handle(GetReservationByIdQuery request, CancellationToken cancellationToken)
     {
-       var data = await _context.Reservations
+      var data = await _context.Reservations
        .Include(x=>x.Vehicle)
        .Include(x=>x.Customer)
+       .Where(x=>x.Id == request.Id)
        .Select(x => new GetReservationDto
        {
         ReservationId = x.Id,
@@ -51,6 +52,5 @@ namespace RMS.Application.Features.Reservations.Queries.GetReservation
          return Response<List<GetReservationDto>>.Failure("No records found.");
  
        return Response<List<GetReservationDto>>.Success(data);
-    } 
+    }
   }
-}

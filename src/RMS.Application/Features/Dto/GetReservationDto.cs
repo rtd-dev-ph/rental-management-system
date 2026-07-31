@@ -8,6 +8,7 @@ namespace RMS.Application.Features.Dto
     public class GetReservationDto
     { 
         //Reservation
+        public Guid ReservationId { get; set; }
         public Guid? CustomerId { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }

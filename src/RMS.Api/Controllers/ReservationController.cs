@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using RMS.Application.Features.Dto;
 using RMS.Application.Features.Reservations.Commands.CreateReservation;
 using RMS.Application.Features.Reservations.Queries.GetReservation;
+using RMS.Application.Features.Reservations.Queries.GetReservationById;
 
 namespace RMS.Api.Controllers
 {
@@ -24,14 +25,21 @@ namespace RMS.Api.Controllers
         public async Task<IActionResult>CreateReservation([FromBody] CreateReservationCommand command)
         {
             var reservation = await _mediator.Send(command);
-            return Ok(reservation);
+            return HandleResponse(reservation);
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllReservation()
         {
             var reservation = await _mediator.Send(new GetReservationQuery());
-            return Ok(reservation);
+            return HandleResponse(reservation);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetAllReservation(Guid id)
+        {
+            var reservation = await _mediator.Send(new GetReservationByIdQuery {Id = id});
+            return HandleResponse(reservation);
         }
  
     }

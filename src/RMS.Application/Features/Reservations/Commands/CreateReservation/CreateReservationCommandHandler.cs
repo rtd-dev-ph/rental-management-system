@@ -23,10 +23,8 @@ namespace RMS.Application.Features.Reservations.Commands.CreateReservation;
      var reservation = new Reservation()
        {
            Id = new Guid(),
-           VehicleId = request.VehicleId,
-           Vehicle = request.Vehicle,
-           CustomerId = request.CustomerId,
-           Customer = request.Customer,
+           VehicleId = request.VehicleId,  
+           CustomerId = request.CustomerId, 
            StartDate = request.StartDate,
            EndDate = request.EndDate,
            Status = "Pending",

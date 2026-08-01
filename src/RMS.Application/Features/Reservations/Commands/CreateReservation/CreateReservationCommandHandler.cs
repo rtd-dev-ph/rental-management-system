@@ -21,6 +21,15 @@ namespace RMS.Application.Features.Reservations.Commands.CreateReservation;
 
   public async Task<Response<string>> Handle(CreateReservationCommand request, CancellationToken cancellationToken)
   {
+    var vehicle = await _context.Vehicles
+    .FirstOrDefaultAsync(x=>x.Id == request.VehicleId,cancellationToken);
+
+    if(vehicle == null)
+      return Response<string>.Failure("Vehicle not found.");
+
+      if(vehicle.Status == "Rented" || vehicle.Status == "Maintenance")
+        return Response<string>.Failure($"Vehicle is currently {vehicle.Status}");
+ 
     // Check availability - prevent double booking
 
     var  isBooked = await _context.Reservations
@@ -39,7 +48,7 @@ namespace RMS.Application.Features.Reservations.Commands.CreateReservation;
            CustomerId = request.CustomerId, 
            StartDate = request.StartDate,
            EndDate = request.EndDate,
-           Status = "Cancelled",
+           Status = "Pending",
            TotalAmount = request.TotalAmount,
            Notes = request.Notes,
            CreatedAt = DateTime.UtcNow

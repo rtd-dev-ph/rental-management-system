@@ -6,4 +6,7 @@
     <Project Path="src/RMS.Infrastructure/RMS.Infrastructure.csproj" />
     <Project Path="src/RMS.Shared/RMS.Shared.csproj" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/RMS.UnitTests/RMS.UnitTests.csproj" />
+  </Folder>
 </Solution>

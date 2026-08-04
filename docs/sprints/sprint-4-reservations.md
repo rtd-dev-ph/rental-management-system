@@ -1,6 +1,6 @@
 # Sprint 4: Reservation System
 
-**Start Date**: July 30-Aug 1, 2026  
+**Date**: July 30, 2026  
 **Status**: 🟡 Completed
 
 ## Goal

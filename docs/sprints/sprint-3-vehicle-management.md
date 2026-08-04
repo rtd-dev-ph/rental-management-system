@@ -1,6 +1,6 @@
 # Sprint 3: Vehicle Management
 
-**Date**: July 29-30, 2026
+**Date**: July 29, 2026
 **Status**: ✅ Complete
 
 ## Goal

@@ -1,6 +1,6 @@
 # Sprint 1: Authentication & User Management
 
-**Date**: January 23-24, 2026
+**Date**: January 23, 2026
 **Status**: ✅ Complete
 
 ## Goal

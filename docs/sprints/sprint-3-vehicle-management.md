@@ -1,6 +1,6 @@
 # Sprint 3: Vehicle Management
 
-**Date**: July 29-30, 2026
+**Date**: July 29, 2026
 **Status**: ✅ Complete
 
 ## Goal
@@ -36,14 +36,6 @@ Full CRUD for vehicles with categories and soft delete.
 - ✅ vehicles (Brand, Model, Year, PlateNumber, DailyRate, Status, CategoryId, DeletedAt)
 - ✅ Soft delete with query filter
 - ✅ PlateNumber unique constraint (Brand NOT unique)
-
-## Lessons Learned
-
-- Always review database design after migration (\d table_name)
-- Brand should NOT be unique (multiple vehicles same brand)
-- PlateNumber SHOULD be unique
-- Custom Response<T> pattern for consistent API responses
-- HandleResponse in controller for clean response handling
 
 ## Next Sprint
 

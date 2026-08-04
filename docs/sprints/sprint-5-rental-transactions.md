@@ -1,30 +1,38 @@
 # Sprint 5: Rental Transactions
 
-**Start Date**: Aug 3, 2026  
-**Status**: 🟡 In Progress
+**Date**: Aug 4, 2026  
+**Status**: ✅ Complete
 
 ## Goal
 
-Track vehicle pickup and return, update vehicle status, calculate rental duration.
+Track vehicle pickup and return, manage rental lifecycle.
 
 ## User Stories
 
-| ID     | Story                         | Priority | Status |
-| ------ | ----------------------------- | -------- | ------ |
-| US-5.1 | Pickup vehicle (start rental) | P0       | ⬜     |
-| US-5.2 | Return vehicle (end rental)   | P0       | ⬜     |
-| US-5.3 | View active rentals           | P1       | ⬜     |
-| US-5.4 | View rental history           | P1       | ⬜     |
+| ID     | Story                         | Status |
+| ------ | ----------------------------- | ------ |
+| US-5.1 | Pickup vehicle (start rental) | ✅     |
+| US-5.2 | Return vehicle (end rental)   | ✅     |
+| US-5.3 | Approve reservation           | ✅     |
+| US-5.4 | View active rentals           | ✅     |
+| US-5.5 | View rental history           | ✅     |
 
 ## API Endpoints
 
-| Method | Endpoint                            | Description    |
-| ------ | ----------------------------------- | -------------- |
-| POST   | /api/rentals/{reservationId}/pickup | Start rental   |
-| POST   | /api/rentals/{id}/return            | End rental     |
-| GET    | /api/rentals/active                 | Active rentals |
-| GET    | /api/rentals                        | Rental history |
+| Method | Endpoint                           | Description     |
+| ------ | ---------------------------------- | --------------- |
+| POST   | /api/rental/{reservationId}/pickup | Start rental    |
+| POST   | /api/rental/{rentalId}/return      | End rental      |
+| PUT    | /api/reservation/{id}/approve      | Approve booking |
+| GET    | /api/rental/active                 | Active rentals  |
+| GET    | /api/rental                        | Rental history  |
 
-## Database Tables
+## Flow
 
-- rental_transactions
+Pending → Approved → Pickup (Rented) → Return (Completed)
+↓ ↓
+Vehicle: Rented Vehicle: Available
+
+## Database
+
+- ✅ rental_transactions (ReservationId, VehicleId, PickupDate, ReturnDate, Status)

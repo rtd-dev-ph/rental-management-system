@@ -37,14 +37,6 @@ Full CRUD for vehicles with categories and soft delete.
 - ✅ Soft delete with query filter
 - ✅ PlateNumber unique constraint (Brand NOT unique)
 
-## Lessons Learned
-
-- Always review database design after migration (\d table_name)
-- Brand should NOT be unique (multiple vehicles same brand)
-- PlateNumber SHOULD be unique
-- Custom Response<T> pattern for consistent API responses
-- HandleResponse in controller for clean response handling
-
 ## Next Sprint
 
 **Sprint 4: Reservation System** - Booking, availability checks, approval workflow

@@ -10,5 +10,6 @@ public interface IApplicationDbContext
     DbSet<Vehicle> Vehicles { get; }
     DbSet<VehicleCategory> VehicleCategories { get; }
     DbSet<Reservation> Reservations { get; }
+    DbSet<RentalTransaction> RentalTransactions {get;}
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

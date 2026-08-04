@@ -15,8 +15,9 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<Role> Roles => Set<Role>(); 
     public DbSet<Vehicle> Vehicles => Set<Vehicle>();
     public DbSet<VehicleCategory> VehicleCategories  => Set<VehicleCategory>();
-    
     public DbSet<Reservation> Reservations => Set<Reservation>();
+    public DbSet<RentalTransaction> RentalTransactions => Set<RentalTransaction>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using RMS.Application.Features.Rentals.Commands.PickupVehicle;
 using RMS.Application.Features.Rentals.Commands.PickupVehicle.Queries;
 using RMS.Application.Features.Rentals.Commands.ReturnVehicle;
+using RMS.Application.Features.Rentals.Queries;
 
 namespace RMS.Api.Controllers
 {
@@ -33,8 +34,14 @@ namespace RMS.Api.Controllers
         {
             var result = await _mediator.Send(new GetAllRentalTransactionsQuery());
             return HandleResponse(result);
-        }
+        } 
 
+        [HttpGet("active")]
+        public async Task<IActionResult> GetActiveRentalTransactions()
+        {
+            var result = await _mediator.Send(new GetActiveRentalsQuery());
+            return HandleResponse(result);
+        }
 
         [HttpPut("{rentalId}/rental")]
         public async Task<IActionResult> ReturnVehicle(Guid rentalId, [FromBody] ReturnVehicleCommand command)

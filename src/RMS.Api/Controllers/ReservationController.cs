@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using RMS.Application.Features.Dto;
+using RMS.Application.Features.Reservations.Commands.ApproveReservation;
 using RMS.Application.Features.Reservations.Commands.CancelReservation;
 using RMS.Application.Features.Reservations.Commands.CreateReservation;
 using RMS.Application.Features.Reservations.Commands.UpdateReservation;
@@ -57,5 +59,13 @@ namespace RMS.Api.Controllers
             var reservation = await _mediator.Send(command);
             return HandleResponse(reservation);
         }
+
+        [HttpPut("{id}/approve")]
+        public async Task<IActionResult>ApproveReservation(Guid id)
+        {
+            var reservation = await _mediator.Send(new ApproveReservationCommand {Id = id});
+            return HandleResponse(reservation);
+        }
+
     }
 }

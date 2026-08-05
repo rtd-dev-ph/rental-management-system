@@ -53,7 +53,7 @@ Sprint 2 Auth Frontend ✅
 Sprint 3 Vehicle Management ✅
 Sprint 4 Reservation System ✅
 Sprint 5 Rental Transactions ✅
-Sprint 6 Dashboard & Reports 🟡
+Sprint 6 Dashboard & Reports ✅
 Sprint 7 Image Upload ⬜
 
 ## 🔒 Security

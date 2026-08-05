@@ -13,6 +13,7 @@ using RMS.Application.Features.Vehicles.Commands.DeleteVehicle;
 using RMS.Application.Features.Vehicles.Commands.GetCategory;
 using RMS.Application.Features.Vehicles.Commands.GetVehicle;
 using RMS.Application.Features.Vehicles.Commands.UpdateVehicle;
+using RMS.Application.Features.Vehicles.Commands.UploadImage;
 
 namespace RMS.Api.Controllers
 {
@@ -85,5 +86,26 @@ namespace RMS.Api.Controllers
             var result = await _mediator.Send(new GetCategoryCommand());
             return Ok(result);
         }
+
+    [HttpPost("{id}/images")]
+    [Consumes("multipart/form-data")]
+    public async Task<IActionResult> UploadImage(Guid id, [FromForm] UploadImageRequest request)
+    {
+        var command = new UploadImageCommand
+        {
+            VehicleId = id,
+            File = request.File,
+            IsCover = request.IsCover
+        };
+        var result = await _mediator.Send(command);
+        return HandleResponse(result);
+    }
+
+    public class UploadImageRequest
+    {
+        public IFormFile File { get; set; } = null!;
+        public bool IsCover { get; set; }
+    }
+
     } 
 }

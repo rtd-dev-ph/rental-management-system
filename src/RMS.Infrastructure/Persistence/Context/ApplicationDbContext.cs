@@ -17,6 +17,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<VehicleCategory> VehicleCategories  => Set<VehicleCategory>();
     public DbSet<Reservation> Reservations => Set<Reservation>();
     public DbSet<RentalTransaction> RentalTransactions => Set<RentalTransaction>();
+    public DbSet<VehicleImage> VehicleImages => Set<VehicleImage>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -10,6 +10,7 @@ using RMS.Application.Common.Interfaces;
 using RMS.Application.Features.Auth.Commands.Register;
 using RMS.Infrastructure.Persistence.Context;
 using RMS.Infrastructure.Services;
+using RMS.Api.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -59,7 +60,11 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddAuthorization();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.OperationFilter<FileUploadOperationFilter>();
+});
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddCors(options =>
 {
@@ -81,5 +86,6 @@ app.UseCors("AllowFrontend");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+app.UseStaticFiles();
 
 app.Run();

@@ -18,12 +18,12 @@ Allow customers to book vehicles with availability checks and date validation.
 | US-4.5 | Cancel reservation         | P1       | ⬜     |
 | US-4.6 | Approve/reject reservation | P2       | ⬜     |
 
-## Database Tables (Planned)
+## Database Tables
 
 - reservations (VehicleId, CustomerId, StartDate, EndDate, Status, TotalAmount)
 - rental_transactions (future sprint)
 
-## API Endpoints (Planned)
+## API Endpoints
 
 | Method | Endpoint                        | Description        |
 | ------ | ------------------------------- | ------------------ |

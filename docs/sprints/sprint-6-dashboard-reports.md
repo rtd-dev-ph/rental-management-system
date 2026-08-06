@@ -15,9 +15,7 @@ Dashboard metrics and report endpoints for business insights.
 | GET    | /api/reports/revenue      | Revenue by date range | ✅     |
 | GET    | /api/reports/top-vehicles | Most rented vehicles  | ✅     |
 | GET    | /api/reports/utilization  | Vehicle utilization   | ✅     |
-
-## What We Built
-
+ 
 ### Dashboard Stats
 
 - Total vehicles, available, rented, maintenance counts

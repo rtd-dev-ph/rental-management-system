@@ -9,11 +9,13 @@ using RMS.Application.Common.Models;
 using RMS.Application.Features.Dto;
 using RMS.Application.Features.Vehicles.Commands.CreateCategory;
 using RMS.Application.Features.Vehicles.Commands.CreateVehicle;
+using RMS.Application.Features.Vehicles.Commands.DeleteImage;
 using RMS.Application.Features.Vehicles.Commands.DeleteVehicle;
 using RMS.Application.Features.Vehicles.Commands.GetCategory;
 using RMS.Application.Features.Vehicles.Commands.GetVehicle;
 using RMS.Application.Features.Vehicles.Commands.UpdateVehicle;
 using RMS.Application.Features.Vehicles.Commands.UploadImage;
+using RMS.Application.Features.Vehicles.Queries;
 
 namespace RMS.Api.Controllers
 {
@@ -100,6 +102,21 @@ namespace RMS.Api.Controllers
         var result = await _mediator.Send(command);
         return HandleResponse(result);
     }
+
+     [HttpGet("{vehicleId}/images")]
+     public async Task<IActionResult> GetVehicleImage(Guid vehicleId)
+        {
+            var result =  await _mediator.Send(new GetVehicleImagesQuery {VehicleId = vehicleId});
+            return HandleResponse(result);
+        }
+
+    [HttpDelete("images/{imageId}")]
+        public async Task<IActionResult> DeleteImage(Guid imageId)
+        {
+            var result = await _mediator.Send(new DeleteImagesCommand { ImageId = imageId });
+            return HandleResponse(result);
+        }    
+
 
     public class UploadImageRequest
     {

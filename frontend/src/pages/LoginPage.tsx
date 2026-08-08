@@ -7,8 +7,8 @@ import { Alert } from "../components/ui/Alert";
 import type { AxiosError } from "axios";
 
 export function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("den@test.com");
+  const [password, setPassword] = useState("123");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();

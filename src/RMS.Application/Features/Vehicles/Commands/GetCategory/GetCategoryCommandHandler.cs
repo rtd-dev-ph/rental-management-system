@@ -23,6 +23,7 @@ namespace RMS.Application.Features.Vehicles.Commands.GetCategory
       .Include(x=>x.Vehicles)
       .Select(x => new GetCategoryDto
       {  
+          CategoryId = x.Id,
           Name = x.Name,
           Description = x.Description,
           CreatedAt = x.CreatedAt

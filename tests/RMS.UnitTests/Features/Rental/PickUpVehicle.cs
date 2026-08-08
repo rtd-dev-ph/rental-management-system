@@ -19,7 +19,7 @@ namespace RMS.UnitTests.Features.Rental
             // };
 
 
-            Assert.True(true);
+            // Assert.True(true);
         }
     }
 }

@@ -88,6 +88,12 @@ namespace RMS.Api.Controllers
             var result = await _mediator.Send(new GetCategoryCommand());
             return Ok(result);
         }
+    [HttpGet("category/{id}")]
+    public async Task<IActionResult> GetCategoryById(int id)
+        {
+            var result = await _mediator.Send(new GetCategoryByIdQuery { CategoryId = id });
+            return Ok(result);
+        }
 
     [HttpPost("{id}/images")]
     [Consumes("multipart/form-data")]

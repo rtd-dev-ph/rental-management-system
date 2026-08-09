@@ -105,10 +105,6 @@ export function VehicleListPage() {
                 Brand
               </th>
               <th className="px-6 py-3 text-left text-sm font-medium text-gray-500">
-
-
-
-                
                 Model
               </th>
               <th className="px-6 py-3 text-left text-sm font-medium text-gray-500">
@@ -122,6 +118,9 @@ export function VehicleListPage() {
               </th>
               <th className="px-6 py-3 text-left text-sm font-medium text-gray-500">
                 Status
+              </th>
+              <th className="px-6 py-3 text-left text-sm font-medium text-gray-500">
+                Actions
               </th>
             </tr>
           </thead>
@@ -137,6 +136,14 @@ export function VehicleListPage() {
                 <td className="px-6 py-4">₱{vehicle.dailyRate}</td>
                 <td className="px-6 py-4">
                   <StatusBadge status={vehicle.status} />
+                </td>
+                <td className="px-6 py-4">
+                  <Link
+                    to={`/vehicles/${vehicle.id}/edit`}
+                    className="text-blue-600 hover:underline"
+                  >
+                    Edit
+                  </Link>
                 </td>
               </tr>
             ))}

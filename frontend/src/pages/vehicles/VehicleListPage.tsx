@@ -5,6 +5,7 @@
 import { useState, useEffect } from "react";
 import { getVehicles, type Vehicle } from "../../services/vehicleService";
 import { Link } from "react-router-dom";
+import api from "../../services/api";
 
 export function VehicleListPage() {
   // ─── STATE ───────────────────────────
@@ -81,6 +82,17 @@ export function VehicleListPage() {
     );
   }
 
+  const handleDelete = async (vehicleId: string) => {
+    if (!window.confirm("Are you sure you want to delete this vehicle?")) {
+      return;
+    }
+
+    await api.delete(`/vehicle/${vehicleId}`);
+
+    const data = await getVehicles();
+    setVehicles(data);
+  };
+
   // State 4: Data loaded - show the table
   return (
     <div className="p-6">
@@ -144,6 +156,15 @@ export function VehicleListPage() {
                   >
                     Edit
                   </Link>
+                </td>
+
+                <td className="px-6 py-4">
+                  <button
+                    onClick={() => handleDelete(vehicle.id)}
+                    className="text-red-600 hover:underline"
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}

@@ -161,7 +161,7 @@ export function VehicleListPage() {
                 <td className="px-6 py-4">
                   <button
                     onClick={() => handleDelete(vehicle.id)}
-                    className="text-red-600 hover:underline"
+                    className="text-red-600 hover:underline cursor-pointer"
                   >
                     Delete
                   </button>

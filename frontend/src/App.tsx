@@ -7,6 +7,7 @@ import { ProtectedRoute } from "./components/auth/ProtectedRoute";
 import { VehicleListPage } from "./pages/vehicles/VehicleListPage";
 import { CreateVehiclePage } from "./pages/vehicles/CreateVehiclePage";
 import { EditVehiclePage } from "./pages/vehicles/EditVehiclePage";
+import { CreateReservationPage } from "./pages/reservations/CreateReservationPage";
 
 function App() {
   return (
@@ -48,6 +49,16 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/reservations/new"
+            element={
+              <ProtectedRoute>
+                <CreateReservationPage />
+              </ProtectedRoute>
+            }
+          >
+            {" "}
+          </Route>
         </Routes>
       </BrowserRouter>
     </AuthProvider>

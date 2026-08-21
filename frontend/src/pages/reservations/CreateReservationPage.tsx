@@ -7,7 +7,7 @@ export function CreateReservationPage() {
   const navigate = useNavigate();
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
   const [vehicleId, setVehicleId] = useState("");
-  const [customerId, setCustomerId] = useState("");
+  // const [customerId, setCustomerId] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [totalAmount, setTotalAmount] = useState("");
@@ -35,6 +35,7 @@ export function CreateReservationPage() {
       endDate: new Date(endDate).toISOString(),
       totalAmount: Number(totalAmount),
     });
+
     navigate("/reservations");
   };
 

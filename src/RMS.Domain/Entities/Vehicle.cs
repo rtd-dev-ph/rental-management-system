@@ -17,4 +17,5 @@ public class Vehicle
     public DateTime? DeletedAt { get; set; }               // Soft delete
 
     public ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
+    public ICollection<VehicleImage> Images { get; set; } = new List<VehicleImage>();
 }

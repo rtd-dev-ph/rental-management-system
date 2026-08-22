@@ -11,6 +11,7 @@ export function CreateReservationPage() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [totalAmount, setTotalAmount] = useState("");
+  // const [dailyRate, setDailyRate] = useState(0);
 
   useEffect(() => {
     async function loadVehicles() {

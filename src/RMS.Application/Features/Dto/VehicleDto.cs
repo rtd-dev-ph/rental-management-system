@@ -14,5 +14,7 @@ public record VehicleDto
     public string PlateNumber { get; init; } = string.Empty;
     public decimal DailyRate { get; init; }
     public string Status { get; init; } = string.Empty;
-    public string CategoryName { get; init; } = string.Empty;  // Just the name, not the whole object
+    public string CategoryName { get; init; } = string.Empty;   
+    public string? ImageUrl { get; set; }
+    
 }

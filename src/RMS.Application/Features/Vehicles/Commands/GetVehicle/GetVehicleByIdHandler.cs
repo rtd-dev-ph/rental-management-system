@@ -21,6 +21,7 @@ namespace RMS.Application.Features.Vehicles.Commands.GetVehicle
     {
       var data = await _context.Vehicles
       .Include(x=>x.Category)
+      .Include(x=>x.Images) 
       .Where(x=>x.Id == request.Id)
       .Select(x=> new VehicleDto
       {
@@ -31,7 +32,7 @@ namespace RMS.Application.Features.Vehicles.Commands.GetVehicle
           PlateNumber = x.PlateNumber,
           DailyRate = x.DailyRate,
           Status = x.Status,
-          CategoryName = x.Category.Name 
+          CategoryName = x.Category.Name
       }).FirstOrDefaultAsync(cancellationToken);
 
         if(data == null)

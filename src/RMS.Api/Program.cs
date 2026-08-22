@@ -11,6 +11,7 @@ using RMS.Application.Features.Auth.Commands.Register;
 using RMS.Infrastructure.Persistence.Context;
 using RMS.Infrastructure.Services;
 using RMS.Api.Filters;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -76,6 +77,7 @@ builder.Services.AddCors(options =>
     });
 });
 
+
 var app = builder.Build();
 
 app.UseMiddleware<ExceptionMiddleware>();
@@ -88,5 +90,5 @@ app.UseAuthorization();
 app.MapControllers();
 app.UseStaticFiles();
 app.MapGet("/health", () => Results.Ok(new { status = "healthy", timestamp = DateTime.UtcNow }));
-
+ 
 app.Run();

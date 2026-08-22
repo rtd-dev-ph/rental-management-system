@@ -9,6 +9,7 @@ import { CreateVehiclePage } from "./pages/vehicles/CreateVehiclePage";
 import { EditVehiclePage } from "./pages/vehicles/EditVehiclePage";
 import { CreateReservationPage } from "./pages/reservations/CreateReservationPage";
 import { ReservationListPage } from "./pages/reservations/ReservationListPage";
+import { LandingPage } from "./pages/LandingPage";
 
 function App() {
   return (
@@ -68,6 +69,7 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="/" element={<LandingPage />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

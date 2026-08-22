@@ -11,7 +11,7 @@ export function CreateReservationPage() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [totalAmount, setTotalAmount] = useState("");
-  // const [dailyRate, setDailyRate] = useState(0);
+  const [dailyRate, setDailyRate] = useState(0);
 
   useEffect(() => {
     async function loadVehicles() {
@@ -40,6 +40,29 @@ export function CreateReservationPage() {
     navigate("/reservations");
   };
 
+  const handleVehicleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedId = e.target.value;
+    setVehicleId(selectedId);
+
+    const selected = vehicles.find((x: Vehicle) => x.id === selectedId);
+    if (selected) {
+      setDailyRate(selected.dailyRate);
+    }
+  };
+
+  const calculateTotal = (start: string, end: string) => {
+    if (!start || !end || !dailyRate) return;
+    const startDate = new Date(start);
+    const endDate = new Date(end);
+    const days = Math.ceil(
+      (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24),
+    );
+
+    if (days > 0) {
+      setTotalAmount((days * dailyRate).toString());
+    }
+  };
+
   return (
     <div className="p-6 max-w-lg mx-auto">
       <h1 className="text-2xl font-bold mb-6">New Reservation</h1>
@@ -51,7 +74,8 @@ export function CreateReservationPage() {
           </label>
           <select
             value={vehicleId}
-            onChange={(e) => setVehicleId(e.target.value)}
+            // onChange={(e) => setVehicleId(e.target.value)}
+            onChange={handleVehicleChange}
             className="w-full border rounded-lg px-3 py-2"
           >
             <option value="">Select Vehicle</option>
@@ -70,7 +94,10 @@ export function CreateReservationPage() {
           <input
             type="datetime-local"
             value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
+            onChange={(e) => {
+              setStartDate(e.target.value);
+              calculateTotal(e.target.value, endDate);
+            }}
             className="w-full border rounded-lg px-3 py-2"
           />
         </div>
@@ -82,7 +109,10 @@ export function CreateReservationPage() {
           <input
             type="datetime-local"
             value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
+            onChange={(e) => {
+              setEndDate(e.target.value);
+              calculateTotal(startDate, e.target.value);
+            }}
             className="w-full border rounded-lg px-3 py-2"
           />
         </div>
@@ -94,8 +124,9 @@ export function CreateReservationPage() {
           <input
             type="number"
             value={totalAmount}
+            disabled
             onChange={(e) => setTotalAmount(e.target.value)}
-            className="w-full border rounded-lg px-3 py-2"
+            className="w-full border rounded-lg px-3 py-2 bg-gray-200 cursor-not-allowed"
           />
         </div>
         <button

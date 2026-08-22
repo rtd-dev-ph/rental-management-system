@@ -94,6 +94,7 @@ export function CreateReservationPage() {
           <input
             type="datetime-local"
             value={startDate}
+            min={new Date().toISOString().slice(0, 16)}
             onChange={(e) => {
               setStartDate(e.target.value);
               calculateTotal(e.target.value, endDate);
@@ -109,6 +110,7 @@ export function CreateReservationPage() {
           <input
             type="datetime-local"
             value={endDate}
+            min={startDate}
             onChange={(e) => {
               setEndDate(e.target.value);
               calculateTotal(startDate, e.target.value);
